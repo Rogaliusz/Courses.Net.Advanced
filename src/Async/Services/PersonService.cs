@@ -1,7 +1,11 @@
 namespace Async.Services
 {
-    public class PersonService
+    public interface IPersonService
     {
         
+    }
+    
+    public class PersonService
+    {
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Newtonsoft.Json;
 using Shared.Models;
 
@@ -8,6 +10,7 @@ namespace Shared.Services
 {
     public interface IUserService
     {
+        Task<int> GetCountAsync();
         Task<ICollection<User>> GetUsersAsync();
         Task UpdateUserAsync(User user);
     }
@@ -26,7 +29,10 @@ namespace Shared.Services
             
             _httpClient = new HttpClient();
         }
-        
+
+        public async Task<int> GetCountAsync()
+            => (await GetUsersAsync()).Count;
+
         public async Task<ICollection<User>> GetUsersAsync()
         {
             var response = await _httpClient.GetAsync(_usersEndpoint);
@@ -36,7 +42,9 @@ namespace Shared.Services
 
         public async Task UpdateUserAsync(User user)
         {
-            await _httpClient.PutAsync(user, _usersEndpoint)
+            var json = JsonConvert.SerializeObject(user);
+            var payload = new StringContent(json, Encoding.UTF8, "application/json");
+            await _httpClient.PutAsync(_usersEndpoint, payload);
         }
     }
 }

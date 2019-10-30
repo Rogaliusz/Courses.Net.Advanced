@@ -1,4 +1,13 @@
-$HEADER$namespace $NAMESPACE$
+using Newtonsoft.Json;
+
+namespace Shared.Models
 {
-  public class $CLASS$ {$END$}
+    public partial class Geo
+    {
+        [JsonProperty("lat")]
+        public string Lat { get; set; }
+
+        [JsonProperty("lng")]
+        public string Lng { get; set; }
+    }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Async.Ex
+namespace Async.Samples
 {
     public static class Tasks
     {
